@@ -1,2 +1,3 @@
 # Bin2Dec
- A simple Binary to Decimal convertor made in C using recursion!
+ A simple Binary to Decimal converter made in C using recursion!
+ 
