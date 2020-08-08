@@ -2,6 +2,7 @@
 #include <math.h>
 
 #define END_BINARY_NUMBER 0
+#define LIMIT_BINARY_NUMBER 64
 #define ERROR_INVALID_CHARACTER -1
 
 void clear_input_buffer(){
@@ -10,39 +11,50 @@ void clear_input_buffer(){
 	while((buffer = getchar()) != '\n' && buffer != EOF);
 }
 
-int convert(int *exponent){
+int convert(unsigned long long int *decimal, short int exponent){
 	char binary = getchar();
-	int decimal;
 	
 	if(binary == '\n')
 		return END_BINARY_NUMBER;
-	else if(binary != '1' && binary != '0')
+	else if(exponent >= LIMIT_BINARY_NUMBER){
+		clear_input_buffer();
+		return END_BINARY_NUMBER;
+	}else if(binary != '1' && binary != '0'){
+		clear_input_buffer();
 		return ERROR_INVALID_CHARACTER;
+	}
+	
+	exponent = convert(decimal, exponent + 1);
 		
-	if((decimal = convert(exponent)) == ERROR_INVALID_CHARACTER) 
+	if(exponent == ERROR_INVALID_CHARACTER) 
 		return ERROR_INVALID_CHARACTER;
 	
-	decimal += pow(2, (*exponent)++) * (binary - '0');
+	*decimal += pow(2, exponent++) * (binary - '0');
 	
-	return decimal;
+	return exponent;
 }
 
-void pre_convert(){
-	int decimal = 0, exponent = 0;
+void converter(){
+	unsigned long long int decimal = 0;
+	short int exponent = 0;
 
 	printf("\nEnter with a binary number: ");
 	
-	if((decimal = convert(&exponent)) == ERROR_INVALID_CHARACTER)
-		puts("You have entered with a invalid character!");
+	exponent = convert(&decimal, exponent + 1);
+	
+	if(exponent == END_BINARY_NUMBER)
+		puts("You have not entered any number!");
+	else if(exponent == ERROR_INVALID_CHARACTER)
+		puts("You have entered an invalid character!");
 	else
-		printf("Decimal value: %d\n", decimal);
+		printf("Decimal value: %llu\n", decimal);
 }
 
 int main(){
 	char convert_again;
 	
 	do{
-		pre_convert();
+		converter();
 		
 		puts("\nDo you want to convert another binary number? [y/n]");
 		
