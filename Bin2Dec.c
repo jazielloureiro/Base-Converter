@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 
 #define END_BINARY_NUMBER 0
 #define LIMIT_BINARY_NUMBER 64
@@ -11,12 +10,22 @@ void clear_input_buffer(){
 	while((buffer = getchar()) != '\n' && buffer != EOF);
 }
 
-int convert(unsigned long long int *decimal, short int exponent){
+unsigned long long int pot2(short int exponent){
+	unsigned long long int result = 1;
+	short int i;
+	
+	for(i = 0; i < exponent; i++)
+		result *= 2;
+		
+	return result;
+}
+
+short int convert(unsigned long long int *decimal, short int exponent){
 	char binary = getchar();
 	
 	if(binary == '\n')
 		return END_BINARY_NUMBER;
-	else if(exponent >= LIMIT_BINARY_NUMBER){
+	else if(exponent > LIMIT_BINARY_NUMBER){
 		clear_input_buffer();
 		return END_BINARY_NUMBER;
 	}else if(binary != '1' && binary != '0'){
@@ -29,7 +38,7 @@ int convert(unsigned long long int *decimal, short int exponent){
 	if(exponent == ERROR_INVALID_CHARACTER) 
 		return ERROR_INVALID_CHARACTER;
 	
-	*decimal += pow(2, exponent++) * (binary - '0');
+	*decimal += pot2(exponent++) * (binary - '0');
 	
 	return exponent;
 }
