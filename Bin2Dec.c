@@ -1,8 +1,10 @@
 #include <stdio.h>
 
-#define END_BINARY_NUMBER 0
-#define LIMIT_BINARY_NUMBER 64
+#define UNEXPECTED_ERROR -2
 #define ERROR_INVALID_CHARACTER -1
+#define END_BINARY_NUMBER 0
+#define CALC_SUCCESSFULLY 1
+#define LIMIT_BINARY_NUMBER 64
 
 void clear_input_buffer(){
 	char buffer;
@@ -10,22 +12,23 @@ void clear_input_buffer(){
 	while((buffer = getchar()) != '\n' && buffer != EOF);
 }
 
-unsigned long long int pot2(short int exponent){
-	unsigned long long int result = 1;
-	short int i;
+unsigned long long int pot2(short int counter){
+	static unsigned long long int result = 1;
 	
-	for(i = 0; i < exponent; i++)
+	if(counter != 0)
 		result *= 2;
+	else
+		result = 1;
 		
 	return result;
 }
 
-short int convert(unsigned long long int *decimal, short int exponent){
+short int convert(unsigned long long int *decimal, short int counter){
 	char binary = getchar();
 	
 	if(binary == '\n')
 		return END_BINARY_NUMBER;
-	else if(exponent > LIMIT_BINARY_NUMBER){
+	else if(counter > LIMIT_BINARY_NUMBER){
 		clear_input_buffer();
 		return END_BINARY_NUMBER;
 	}else if(binary != '1' && binary != '0'){
@@ -33,30 +36,35 @@ short int convert(unsigned long long int *decimal, short int exponent){
 		return ERROR_INVALID_CHARACTER;
 	}
 	
-	exponent = convert(decimal, exponent + 1);
-		
-	if(exponent == ERROR_INVALID_CHARACTER) 
+	counter = convert(decimal, counter + 1);
+	
+	if(counter == CALC_SUCCESSFULLY || counter == END_BINARY_NUMBER){
+		*decimal += pot2(counter) * (binary - '0');
+		return CALC_SUCCESSFULLY;
+	}else if(counter == ERROR_INVALID_CHARACTER) 
 		return ERROR_INVALID_CHARACTER;
-	
-	*decimal += pot2(exponent++) * (binary - '0');
-	
-	return exponent;
+	else
+		return UNEXPECTED_ERROR;
 }
 
 void converter(){
 	unsigned long long int decimal = 0;
-	short int exponent = 0;
+	short int counter = 0;
 
-	printf("\nEnter with a binary number: ");
+	printf("\nEnter a binary number: ");
 	
-	exponent = convert(&decimal, exponent + 1);
+	counter = convert(&decimal, counter + 1);
 	
-	if(exponent == END_BINARY_NUMBER)
-		puts("You have not entered any number!");
-	else if(exponent == ERROR_INVALID_CHARACTER)
-		puts("You have entered an invalid character!");
-	else
+	if(counter == CALC_SUCCESSFULLY)
 		printf("Decimal value: %llu\n", decimal);
+	else if(counter == END_BINARY_NUMBER)
+		puts("You have not entered any numbers!");
+	else if(counter == ERROR_INVALID_CHARACTER)
+		puts("You have entered an invalid character!");
+	else{
+		puts("An unexpected error has occurred.");
+		puts("Please, contact me: https://github.com/jazielloureiro/Bin2Dec");
+	}
 }
 
 int main(){
