@@ -12,7 +12,7 @@ void clear_input_buffer(){
 	while((buffer = getchar()) != '\n' && buffer != EOF);
 }
 
-unsigned long long int pot2(short int counter){
+unsigned long long int pot2(char counter){
 	static unsigned long long int result = 1;
 	
 	if(counter != 0)
@@ -23,7 +23,7 @@ unsigned long long int pot2(short int counter){
 	return result;
 }
 
-short int convert(unsigned long long int *decimal, short int counter){
+char convert(unsigned long long int *decimal, char counter){
 	char binary = getchar();
 	
 	if(binary == '\n')
@@ -49,7 +49,7 @@ short int convert(unsigned long long int *decimal, short int counter){
 
 void converter(){
 	unsigned long long int decimal = 0;
-	short int counter = 0;
+	char counter = 0;
 
 	printf("\nEnter a binary number: ");
 	
