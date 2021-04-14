@@ -1,3 +1,4 @@
 BaseConverter
 bc
 *.swp
+.obj
