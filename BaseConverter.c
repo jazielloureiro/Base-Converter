@@ -27,6 +27,17 @@ bool is_dec_valid(char *dec){
 	return true;
 }
 
+bool is_hex_valid(char *hex){
+	for( ; *hex != '\0'; hex++){
+		if(*hex >= 'a' && *hex <= 'f')
+			*hex -= 32;
+		if(*hex < '0' || *hex > '9' && *hex < 'A' || *hex > 'F')
+			return false;
+	}
+
+	return true;
+}
+
 void help(){
 	puts("Syntax:\n\t./bc [OPTION] [NUMBER]");
 }
@@ -44,14 +55,12 @@ int main(int argc, char **argv){
 	}else if(strncmp(argv[1], "oct", 3) == 0){
 		if(!is_oct_valid(argv[2]))
 			exit(EXIT_FAILURE);
-	/*
 	}else if(strncmp(argv[1], "dec", 3) == 0){
 		if(!is_dec_valid(argv[2]))
 			exit(EXIT_FAILURE);
 	}else if(strncmp(argv[1], "hex", 3) == 0){
 		if(!is_hex_valid(argv[2]))
 			exit(EXIT_FAILURE);
-	*/
 	}else
 		puts("You've entered an invalid option.");
 
