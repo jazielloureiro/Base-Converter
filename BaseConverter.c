@@ -19,6 +19,14 @@ bool is_oct_valid(char *oct){
 	return true;
 }
 
+bool is_dec_valid(char *dec){
+	for( ; *dec != '\0'; dec++)
+		if(*dec < '0' || *dec > '9')
+			return false;
+
+	return true;
+}
+
 void help(){
 	puts("Syntax:\n\t./bc [OPTION] [NUMBER]");
 }
