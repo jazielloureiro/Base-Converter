@@ -11,6 +11,14 @@ bool is_bin_valid(char *bin){
 	return true;
 }
 
+bool is_oct_valid(char *oct){
+	for( ; *oct != '\0'; oct++)
+		if(*oct < '0' || *oct > '7')
+			return false;
+
+	return true;
+}
+
 void help(){
 	puts("Syntax:\n\t./bc [OPTION] [NUMBER]");
 }
@@ -25,10 +33,10 @@ int main(int argc, char **argv){
 	}else if(strncmp(argv[1], "bin", 3) == 0){
 		if(!is_bin_valid(argv[2]))
 			exit(EXIT_FAILURE);
-	/*
 	}else if(strncmp(argv[1], "oct", 3) == 0){
 		if(!is_oct_valid(argv[2]))
 			exit(EXIT_FAILURE);
+	/*
 	}else if(strncmp(argv[1], "dec", 3) == 0){
 		if(!is_dec_valid(argv[2]))
 			exit(EXIT_FAILURE);
