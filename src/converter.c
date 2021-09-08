@@ -11,3 +11,7 @@ uint8_t get_int(char number) {
 	else
 		return number - LOWERCASE;
 }
+
+uint64_t power(uint8_t base, uint8_t exp) {
+	return exp == 0? 1 : base * power(base, exp - 1);
+}
