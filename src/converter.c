@@ -29,3 +29,20 @@ uint64_t to_decimal(char *input, int radix) {
 char get_radix_char(uint8_t decimal) {
 	return decimal + (decimal <= 9? '0' : LOWERCASE);
 }
+
+void to_radix(uint64_t decimal, int radix, char *out) {
+	char temp[65];
+	int8_t temp_size = 0;
+
+	do {
+		temp[temp_size] = get_radix_char(decimal % radix);
+		temp_size++;
+		decimal /= radix;
+	} while(decimal != 0);
+
+	out[temp_size] = '\0';
+	temp_size--;
+
+	for(uint8_t i = 0; temp_size >= 0; i++, temp_size--)
+		out[i] = temp[temp_size];
+}
