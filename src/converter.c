@@ -30,7 +30,7 @@ char get_base_char(uint8_t decimal) {
 	return decimal + (decimal <= 9? '0' : LOWERCASE);
 }
 
-void to_base(uint64_t decimal, int base, char *out) {
+void to_base(uint64_t decimal, char *out, int base) {
 	char temp[65];
 	int8_t temp_size = 0;
 
@@ -45,4 +45,9 @@ void to_base(uint64_t decimal, int base, char *out) {
 
 	for(uint8_t i = 0; temp_size >= 0; i++, temp_size--)
 		out[i] = temp[temp_size];
+}
+
+void base_convert(char *in, uint8_t in_base, char *out, uint8_t out_base) {
+	uint64_t decimal = to_decimal(in, in_base);
+	to_base(decimal, out, out_base);
 }

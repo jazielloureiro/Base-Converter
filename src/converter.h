@@ -3,7 +3,6 @@
 
 #define OUT_MAX_SIZE 65
 
-uint64_t to_decimal(char *input, int radix);
-void to_radix(uint64_t decimal, int radix, char *out);
+void base_convert(char *in, uint8_t in_base, char *out, uint8_t out_base);
 
 #endif
