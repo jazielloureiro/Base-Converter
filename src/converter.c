@@ -25,3 +25,7 @@ uint64_t to_decimal(char *input, int radix) {
 	
 	return decimal;
 }
+
+char get_radix_char(uint8_t decimal) {
+	return decimal + (decimal <= 9? '0' : LOWERCASE);
+}
