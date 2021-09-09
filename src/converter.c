@@ -17,27 +17,27 @@ uint64_t power(uint8_t base, uint8_t exp) {
 	return exp == 0? 1 : base * power(base, exp - 1);
 }
 
-uint64_t to_decimal(char *input, int radix) {
+uint64_t to_decimal(char *input, int base) {
 	uint64_t decimal = 0;
 
 	for(int16_t i = strlen(input) - 1, e = 0; i >= 0; i--, e++)
-		decimal += get_int(input[i]) * power(radix, e);
+		decimal += get_int(input[i]) * power(base, e);
 	
 	return decimal;
 }
 
-char get_radix_char(uint8_t decimal) {
+char get_base_char(uint8_t decimal) {
 	return decimal + (decimal <= 9? '0' : LOWERCASE);
 }
 
-void to_radix(uint64_t decimal, int radix, char *out) {
+void to_base(uint64_t decimal, int base, char *out) {
 	char temp[65];
 	int8_t temp_size = 0;
 
 	do {
-		temp[temp_size] = get_radix_char(decimal % radix);
+		temp[temp_size] = get_base_char(decimal % base);
 		temp_size++;
-		decimal /= radix;
+		decimal /= base;
 	} while(decimal != 0);
 
 	out[temp_size] = '\0';
