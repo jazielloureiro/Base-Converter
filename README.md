@@ -1,4 +1,4 @@
-# Bin2Dec
+# Base Converter
 
 C library and command line tool to convert between base number systems.
 
