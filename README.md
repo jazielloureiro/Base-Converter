@@ -1,3 +1,7 @@
 # Bin2Dec
- A simple Binary to Decimal converter made in C using recursion!
- 
+
+C library and command line tool to convert between base number systems.
+
+## License
+
+[MIT](https://github.com/jazielloureiro/Base-Converter/blob/master/LICENSE)
