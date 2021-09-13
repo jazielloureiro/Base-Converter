@@ -1,6 +1,6 @@
 # Base Converter
 
-C library and command line tool to convert between base number systems.
+C library and command line tool for base conversion.
 
 ## License
 
